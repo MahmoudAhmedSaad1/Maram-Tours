@@ -24,6 +24,6 @@ export default function Home() {
     <Frequently />
     <NewsLetter />
     <Mejor />
-    <Footer />
+    
   </>
 }

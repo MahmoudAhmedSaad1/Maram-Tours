@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 export default function SecondsectionFooter() {
@@ -7,11 +8,11 @@ export default function SecondsectionFooter() {
 
                         <h3 className="text-[#FFFFFFCC] text-[20px] font-[600]">Quick Link</h3>
                         <ul className="text-[#FFFFFF99] font-[400] ">
-                            <li className="py-2">About Us</li>
-                            <li className="py-2">Home</li>
-                            <li className="py-2">Destinations</li>
-                            <li className="py-2">Experiences</li>
-                            <li className="py-2">Inspirations</li>
+                            <li className="py-2"><Link href="">About Us</Link></li>
+                            <li className="py-2"><Link href="">Home</Link></li>
+                            <li className="py-2"><Link href="">Destinations</Link></li>
+                            <li className="py-2"><Link href="">Experiences</Link></li>
+                            <li className="py-2"><Link href="">Inspirations</Link></li>
                         </ul>
                     </div>
   </>

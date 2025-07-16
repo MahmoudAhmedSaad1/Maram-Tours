@@ -1,6 +1,7 @@
 import { FaArrowRight, FaRegClock } from "react-icons/fa";
 import { CiLocationOn } from "react-icons/ci";
 import Image from "next/image";
+import Link from "next/link";
 
 type Card = {
   title: string;
@@ -41,7 +42,7 @@ export default function CustomCard({ title,location,price, imageUrl }: Card) {
                     </div>
                     <div className="flex justify-between">
                       <button className="flex justify-between items-center border gap-2 border-[#C19A6B] text-[#C19A6B] text-[13px] font-[600] px-5 py-2 rounded-md  hover:bg-[#C19A6B] hover:text-white transition-colors duration-200">
-                        BOOK NOW
+                        <Link href="">BOOK NOW</Link>
                         <span className="text-[10px]"><FaArrowRight /></span>
                       </button>
     
