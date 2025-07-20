@@ -2,7 +2,7 @@ import Contactar from '@/_components/contactar/page'
 import Contact_Us from '@/_components/contactUs/page'
 import Cuaderno from '@/_components/cuaderno/page'
 import Destionations from '@/_components/destionations/page'
-import Footer from '@/_components/footer/page'
+
 import Frequently from '@/_components/frequently/page'
 import Home1 from '@/_components/Home1/page'
 import Mejor from '@/_components/major/page'
