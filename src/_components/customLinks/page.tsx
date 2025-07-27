@@ -1,19 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import ClipLoader from 'react-spinners/ClipLoader';
 
-interface MenuItem {
-  id: number;
-  slug: string;
-  title: string;
-  type: string;
-}
+
+
+
 
 export default function CustomLinks() {
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -23,7 +19,7 @@ export default function CustomLinks() {
         const res = await fetch('https://api.dubaidaytrips.com/v1/menus?tenant_id=58&language_id=51');
         const data = await res.json();
         setMenuItems(data.rows || []);
-        console.log(data.rows);
+        
       } catch {
         setError('Failed to fetch menu items');
       } finally {
@@ -33,26 +29,10 @@ export default function CustomLinks() {
     fetchMenus();
   }, []);
 
-  if (error) return <div>Error: {error}</div>;
-  if (loading) {
-    return (
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        background: 'rgba(255,255,255,0.85)',
-        zIndex: 9999
-      }}>
-        <ClipLoader color="#C19A6B" size={80} />
-      </div>
-    );
-  }
+  if (error) return <div> {error}</div>;
+  if (loading) return <div>Loading...</div>;
 
+ 
   const firstThree = menuItems.slice(0, 3);
   const remaining = menuItems.slice(3);
 
@@ -71,8 +51,8 @@ export default function CustomLinks() {
         ))}
       </ul>
 
-      <div className="mx-4 my-2 md:my-0">
-        <Image src="/Link.svg" alt="Logo" width={150} height={100} className="w-[150px] md:w-[210px] object-contain" />
+      <div className=" my-2 md:my-0 ">
+        <Image src="/Link.svg" alt="Logo" width={150} height={100} className="w-[150px] md:w-[210px] object-contain mx-auto" />
       </div>
 
       <ul className="md:flex gap-4 text-[14px] font-[500] text-black">

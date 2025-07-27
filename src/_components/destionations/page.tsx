@@ -1,15 +1,33 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import Img_Countryname from "../img&countryname/page";
 import Customdiv from "../customp&h&img/page";
+import axios from "axios";
 
-const data = [
-  { imageUrl: "/imgs/Figure.png", title: "Egypt" },
-  { imageUrl: "/imgs/Figure (1).png", title: "Saudi Arabia" },
-  { imageUrl: "/imgs/Figure (2).png", title: "Türkiye" },
-  { imageUrl: "/imgs/Figure (3).png", title: "Jordan" },
-  { imageUrl: "/imgs/Figure (4).png", title: "Other places" }
-];
+
 export default function Destionations() {
+  const [destinations, setDestinations] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axios.get(
+      "https://api.dubaidaytrips.com/v1/destinations/?tenant_id=58&language_id=51&paginate=5&status=active"
+    )
+     
+      .then((res) => {
+
+        const stor = res.data?.rows ; 
+        setDestinations(stor)
+       
+       
+        setLoading(false);
+      })
+      .catch(() => {
+        setDestinations([]);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <>
       <div className=" bg-[#F7F2EE] py-5  ">
@@ -17,15 +35,16 @@ export default function Destionations() {
           <div className="py-8 text-center flex flex-col justify-center">
             {<Customdiv pharagraph="Destinations" heading_3="Escoje tu Destino" imageUrl="imgs/Vector.png" />}
           </div>
-          {
-            data.map((item,id) =>(
-              <Img_Countryname 
-              key={id}
-              imageUrl={item.imageUrl}
-              title = {item.title}
+          {  (destinations.slice(0).map((item, id) => (
+              <Img_Countryname
+                key={id}
+                imageUrl={item.image?.image_url}
+                imagealt={item.image?.image_alt}
+                
+                title={item?.title}
               />
             ))
-          }
+          )}
         </div>
       </div>
     </>
