@@ -1,32 +1,21 @@
-"use client"
-import React, { useEffect, useState } from "react";
+
+
 import Img_Countryname from "../img&countryname/page";
 import Customdiv from "../customp&h&img/page";
-import axios from "axios";
 
+interface destionations {
+  id: number;
+  title: string;
+ 
+  image: {
+    image_url: string;
+    image_alt: string;
+    image_title: string;
+  };
+}
 
-export default function Destionations() {
-  const [destinations, setDestinations] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    axios.get(
-      "https://api.dubaidaytrips.com/v1/destinations/?tenant_id=58&language_id=51&paginate=5&status=active"
-    )
-     
-      .then((res) => {
-
-        const stor = res.data?.rows ; 
-        setDestinations(stor)
-       
-       
-        setLoading(false);
-      })
-      .catch(() => {
-        setDestinations([]);
-        setLoading(false);
-      });
-  }, []);
+export default function Destionations({destionation} : {destionation:destionations[]} ) {
+ 
 
   return (
     <>
@@ -35,7 +24,7 @@ export default function Destionations() {
           <div className="py-8 text-center flex flex-col justify-center">
             {<Customdiv pharagraph="Destinations" heading_3="Escoje tu Destino" imageUrl="imgs/Vector.png" />}
           </div>
-          {  (destinations.slice(0).map((item, id) => (
+          {  (destionation.slice(0).map((item:destionations, id) => (
               <Img_Countryname
                 key={id}
                 imageUrl={item.image?.image_url}

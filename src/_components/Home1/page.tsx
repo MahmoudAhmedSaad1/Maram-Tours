@@ -1,56 +1,33 @@
-"use client";
+"use client"
+import React from 'react';
 import CustomButton from "@/_components/custombutton/page";
-import axios from "axios";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
-export default function Home1() {
-  const [slid, setslid] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const settings = {
-    dots: false,
-    autoplay: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+interface slider {
+  id: number;
+  title: string;
+  body: string;
+  button: string;
+  image: {
+    image_url: string;
+    image_alt: string;
+    image_title: string;
   };
+}
 
-  function get_image() {
-    axios
-      .get(
-        `https://api.dubaidaytrips.com/v1/sliders?tenant_id=58&language_id=51&status=active`
-      )
-      .then((res) => {
-        setslid(res.data.rows);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }
-  useEffect(() => {
-    get_image();
-  }, []);
-  if (loading)
-    return (
-      <div className="flex items-center justify-center h-[400px] md:h-[600px] w-full">
-        <div className="w-16 h-16 border-4 border-[#C49A6C] border-dashed rounded-full animate-spin border-t-transparent"></div>
-      </div>
-    );
+export default function Home1({ sliders }: { sliders: slider[] }) {
   return (
     <>
-      <Slider {...settings}>
-        <div className="h-[400px] md:h-[600px] relative mt-[17%] md:mt-0">
-          {slid.map((slider, id) => (
-            <div key={id}>
+      <Swiper className="mySwiper">
+        {sliders.map((slider: slider, id) => (
+          <SwiperSlide key={id}>
+            <div className="h-[400px] md:h-[600px] relative mt-[17%] md:mt-0">
               <div className="bg-amber-600 absolute inset-0">
                 <Image
                   src={slider?.image?.image_url}
-                  width={100}
-                  height={100}
+                  fill
                   className="home h-full w-screen"
                   alt={slider?.image?.image_alt}
                 />
@@ -68,9 +45,10 @@ export default function Home1() {
                 <div className="bg-[#00000040] w-full h-full" />
               </div>
             </div>
-          ))}
-        </div>
-      </Slider>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      
     </>
   );
 }

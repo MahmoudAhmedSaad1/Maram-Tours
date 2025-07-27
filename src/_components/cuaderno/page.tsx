@@ -1,33 +1,21 @@
-"use client";
-import axios from 'axios';
+
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+
+interface blog {
+  id: number;
+  title: string;
+  destination: string;
+  slug: string;
+  image: {
+    image_url: string;
+    image_alt: string;
+    image_title: string;
+  };
+}
 
 
-
-export default function Cuaderno() {
-  const [formatted, setformatted] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    axios
-      .get("https://api.dubaidaytrips.com/v1/packages/?tenant_id=58&language_id=51&viewInHome=1&paginate=6&status=active")
-      .then((res) => {
-  
-
-        const formatted = res.data?.rows
-
-        setformatted(formatted);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching data:", err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <p className="text-center mt-10">Loading...</p>;
-
+export default function Cuaderno({blogs}:{blogs:blog[]}) {
+ 
   return (
     <div className='container mx-auto'>
       <header>
@@ -38,22 +26,25 @@ export default function Cuaderno() {
       </header>
 
       <div className='grid md:grid-cols-2'>
-        {formatted.map((item, id) => (
+        {blogs?.length > 0 && blogs.map((item, id) => (
           <div className='my-5' key={id}>
-            <div>
+            
+            <div className="w-full h-[360px] relative">
               <Image
-                src={item.image.image_url}
-                width={400}
-                height={300}
+                src={item.image?.image_url  }
+               fill
+                 quality={60}
+                        loading="lazy"
+                        sizes="(max-width : 768 px) 70vw , (max-width :1200px ) 50vw , 33vw"
                 alt={item.title}
-                className='w-[400px] md:w-[588px] h-[300px] mx-auto rounded-[5px]'
+                className='w-[400px] object-cover md:w-[588px] h-[300px] mx-auto rounded-[5px]'
               />
             </div>
             <div className='text-center px-6 md:px-20'>
-              <h4 className='text-[14px] font-[400] text-[#5D5D5D] uppercase my-2'>{item.destination.title}</h4>
+              <h4 className='text-[14px] font-[400] text-[#5D5D5D] uppercase my-2'>{item.destination?.title}</h4>
               
               <p className='lora text-[14px] font-[400] italic text-[#5D5D5D]'>
-               {item.slug}
+               {item.meta.meta_title}
               </p>
               <h5 className='my-2 uppercase font-[700] text-[14px]'>
                 <span className='border-b-1'>Keep Reading...</span>

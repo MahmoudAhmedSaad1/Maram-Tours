@@ -5,17 +5,25 @@ type country = {
   imagealt: string;
   title: string;
 };
-export default function Img_Countryname({ imageUrl, title ,imagealt }: country) {
+export default function Img_Countryname({
+  imageUrl,
+  title,
+  imagealt,
+}: country) {
   return (
     <>
       <div className="px-10  text-center relative md:p-[0] ">
-        <Image
-        width={50}
-        height={50}
-          src={imageUrl}
-          alt={imagealt}
-          className="w-full h-full  border-[10px] border-white rounded-[10px] "
-        />
+        <div className="w-full h-[360px] relative">
+          <Image
+            fill
+            src={imageUrl}
+            alt={imagealt}
+            quality={60}
+            loading="lazy"
+            sizes="(max-width : 768 px) 70vw , (max-width :1200px ) 50vw , 33vw"
+            className="object-cover border-[10px] border-white rounded-[10px] "
+          />
+        </div>
         <p className="absolute bottom-[10%] left-[15%] md:bottom-[10%] md:left-[10%]  font-[900] text-[18px]  text-white uppercase L-spacing">
           {title}
         </p>
