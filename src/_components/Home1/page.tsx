@@ -4,6 +4,8 @@ import CustomButton from "@/_components/custombutton/page";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { useSelector } from 'react-redux';
+
 
 interface slider {
   id: number;
@@ -18,6 +20,7 @@ interface slider {
 }
 
 export default function Home1({ sliders }: { sliders: slider[] }) {
+      let {counter} = useSelector((state:any)=>(state.counter));
   return (
     <>
       <Swiper className="mySwiper">
@@ -25,6 +28,7 @@ export default function Home1({ sliders }: { sliders: slider[] }) {
           <SwiperSlide key={id}>
             <div className="h-[400px] md:h-[600px] relative mt-[17%] md:mt-0">
               <div className="bg-amber-600 absolute inset-0">
+                
                 <Image
                   src={slider?.image?.image_url}
                   fill
@@ -37,11 +41,14 @@ export default function Home1({ sliders }: { sliders: slider[] }) {
                   <h1 className="text-[44px] md:text-[70px] font-[600] w-[75%] mx-auto">
                     {slider?.title}
                   </h1>
+                  <h1>{counter}</h1>
                   <p className="text-[20px] font-[500] py-2">
                     {slider?.image?.image_title}
                   </p>
                   <CustomButton title={slider?.button} />
+
                 </div>
+                
                 <div className="bg-[#00000040] w-full h-full" />
               </div>
             </div>
